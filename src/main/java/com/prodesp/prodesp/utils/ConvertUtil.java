@@ -5,6 +5,8 @@
 package com.prodesp.prodesp.utils;
 
 
+import com.prodesp.prodesp.dtos.UsuarioDTO;
+import com.prodesp.prodesp.entities.Usuarios;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 /**
@@ -13,14 +15,14 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ConvertUtil {
-//    public ProcessoDTO convertToDto(Processo processo) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(processo, ProcessoDTO.class);
-//    }
-//
-//    public Processo convertToEntity(ProcessoDTO processoDto) {
-//        ModelMapper modelMapper = new ModelMapper();
-//        return modelMapper.map(processoDto, Processo.class);
-//    }
+    public UsuarioDTO convertToDto(Usuarios usuario) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(usuario, UsuarioDTO.class);
+    }
+
+    public Usuarios convertToEntity(UsuarioDTO usuarioDto) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(usuarioDto, Usuarios.class);
+    }
     
 }

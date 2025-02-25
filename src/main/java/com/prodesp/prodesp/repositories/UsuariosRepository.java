@@ -5,6 +5,7 @@
 package com.prodesp.prodesp.repositories;
 
 import com.prodesp.prodesp.entities.Usuarios;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Usuario
  */
 public interface UsuariosRepository extends JpaRepository<Usuarios, Long> {
-    
+    Optional<Usuarios> findByLoguinAndSenha(String loguin, String senha);
 }

@@ -4,9 +4,13 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.dtos.UsuarioDTO;
 import com.prodesp.prodesp.entities.Usuarios;
 import com.prodesp.prodesp.repositories.UsuariosRepository;
+import com.prodesp.prodesp.utils.ConvertUtil;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,16 +19,31 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UsuariosService {
-    private final UsuariosRepository repository;
-    public UsuariosService(UsuariosRepository repository) { 
-        this.repository = repository; 
+    @Autowired
+    private ConvertUtil convertUtil;
+    private final UsuariosRepository usuarioRepository;
+    
+    public UsuariosService(UsuariosRepository usuarioRepository) { 
+        this.usuarioRepository = usuarioRepository; 
     }
     
     public List<Usuarios> findAll() { 
-        return repository.findAll(); 
+        return usuarioRepository.findAll(); 
     }
     
     public Usuarios save(Usuarios usuario) { 
-        return repository.save(usuario); 
+        return usuarioRepository.save(usuario); 
+    }
+    
+    public Optional<Usuarios> encontrarPorLoguinESenha(String loguin, String senha) {
+        return usuarioRepository.findByLoguinAndSenha(loguin, senha);
+    }
+    
+    public UsuarioDTO encontrarPorLoguinESenhaDTO(UsuarioDTO dto) {
+        Optional<Usuarios> op = this.encontrarPorLoguinESenha(dto.getLoguin(), dto.getSenha());
+        if (op.isPresent()) {
+            dto = convertUtil.convertToDto(op.get());
+        }
+        return dto;
     }
 }
