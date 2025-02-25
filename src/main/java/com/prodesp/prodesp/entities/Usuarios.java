@@ -22,9 +22,9 @@ import lombok.Data;
  * @author Usuario
  */
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 @Data
-public class Usuario {
+public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
@@ -38,6 +38,6 @@ public class Usuario {
     @Size(min = 8)
     private String senha;
         
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefas> tarefas;
 }

@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
  * @author Usuario
  */
 @Entity
-@Table(name = "Tarefas")
+@Table(name = "tarefas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,21 +32,21 @@ public class Tarefas {
     private Long id;
     
     @Column(nullable = false)
-    private String title;
+    private String titulo;
     
-    private String description;
-    
-    @Column(nullable = false)
-    private boolean completed = false;
+    private String descicao;
     
     @Column(nullable = false)
-    private LocalDateTime dueDate;
+    private boolean completada = false;
+    
+    @Column(nullable = false)
+    private LocalDateTime data;
     
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Usuario user;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuarios usuario;
     
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Categorias category;
+    @JoinColumn(name = "categoria_id")
+    private Categorias categoria;
 }
