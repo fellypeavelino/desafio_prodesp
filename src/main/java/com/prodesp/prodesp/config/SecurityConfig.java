@@ -4,10 +4,14 @@
  */
 package com.prodesp.prodesp.config;
 
+import com.prodesp.prodesp.utils.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  *
@@ -15,12 +19,25 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 public class SecurityConfig {
+    
+    @Autowired
+    private JwtUtil jwtUtil;
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                .anyRequest().authenticated()
-        ).formLogin().disable().httpBasic();
+        
+        String[] urlsPermitidas = {"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/token"};
+        
+        http
+            .csrf(csrf -> csrf.disable()) // Desabilita CSRF para APIs REST
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Sem sessões
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(urlsPermitidas).permitAll() // Permite acesso ao Swagger e login
+                .requestMatchers("/auth/**").permitAll() // Permite autenticação
+                .anyRequest().authenticated() // Todas as outras precisam de autenticação
+            )
+            .addFilterBefore(jwtUtil, UsernamePasswordAuthenticationFilter.class); // Adiciona o filtro JWT
+        
         return http.build();
     }
 }
