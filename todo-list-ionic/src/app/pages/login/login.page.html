@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="floating">Usuário</ion-label>
+      <ion-input formControlName="loguin" type="text"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="loginForm.get('loguin')?.invalid && loginForm.get('loguin')?.touched">
+      Usuário é obrigatório
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input formControlName="senha" [type]="showPassword ? 'text' : 'password'"></ion-input>
+      <ion-button fill="clear" slot="end" (click)="togglePassword()">
+        <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-text color="danger" *ngIf="loginForm.get('senha')?.invalid && loginForm.get('senha')?.touched">
+      Senha é obrigatória (mínimo 8 caracteres).
+    </ion-text>
+
+    <ion-button expand="full" type="submit" [disabled]="loginForm.invalid">
+      Entrar
+    </ion-button>
+  </form>
+</ion-content>
