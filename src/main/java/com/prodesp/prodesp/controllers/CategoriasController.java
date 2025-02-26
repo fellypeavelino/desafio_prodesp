@@ -4,6 +4,7 @@
  */
 package com.prodesp.prodesp.controllers;
 
+import com.prodesp.prodesp.dtos.CategoriasDTO;
 import com.prodesp.prodesp.entities.Categorias;
 import com.prodesp.prodesp.services.CategoriasService;
 import java.util.List;
@@ -26,8 +27,8 @@ public class CategoriasController {
     }
     
     @GetMapping 
-    public List<Categorias> getAll() { 
-        return service.findAll(); 
+    public List<CategoriasDTO> getAll() { 
+        return service.findDTOAll(); 
     }
     
     @PostMapping 

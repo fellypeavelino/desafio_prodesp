@@ -17,4 +17,14 @@ export const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
+  {
+    path: 'categoria-list',
+    loadComponent: () => import('./pages/categoria-list/categoria-list.page').then( m => m.CategoriaListPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'categoria-form',
+    loadComponent: () => import('./pages/categoria-form/categoria-form.page').then( m => m.CategoriaFormPage),
+    canActivate: [authGuard]
+  },
 ];

@@ -1,7 +1,9 @@
 package com.prodesp.prodesp.config;
 
 
+import com.prodesp.prodesp.entities.Categorias;
 import com.prodesp.prodesp.entities.Usuarios;
+import com.prodesp.prodesp.repositories.CategoriasRepository;
 import com.prodesp.prodesp.repositories.UsuariosRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,9 @@ public class DatabaseInitializer implements CommandLineRunner {
     private UsuariosRepository usuarioRepository;
     
     @Autowired
+    private CategoriasRepository categoriasRepository;
+    
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
@@ -41,6 +46,15 @@ public class DatabaseInitializer implements CommandLineRunner {
         } else {
             logger.warn("Usuários já existentes no banco de dados.");
         }
-    
+        if (categoriasRepository.count() == 0) {
+            String[] statusCategoria = {"Em espera", "Priorizado", "Iniciado", "Concluído"};
+            for (String string : statusCategoria) {
+                Categorias c = new Categorias();
+                c.setNome(string);
+                categoriasRepository.save(c);
+            }
+        } else {
+            logger.warn("Categorias já existentes no banco de dados.");
+        }
     }
 }

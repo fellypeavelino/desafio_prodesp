@@ -11,12 +11,14 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   console.log(authToken);
   
   loadingService.setLoading(true);
-
-  const authReq = req.clone({
-    setHeaders: {
-      //Authorization: `Bearer ${authToken}`
-    }
-  });
+  let authReq = req.clone();
+  if (authToken) {
+    authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${authToken}`
+      }
+    });    
+  }
 
   return next(authReq).pipe(
     finalize(() => loadingService.setLoading(false))
