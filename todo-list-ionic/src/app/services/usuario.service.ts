@@ -6,6 +6,8 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
+  
+  usuario!:Usuario;  
   private apiUrl = '/api/usuarios';
 
   constructor(private http: HttpClient) {}
@@ -15,7 +17,7 @@ export class UsuarioService {
   }
 
   async loguinAsync(usuario: Usuario): Promise<Usuario> {
-    return await firstValueFrom (this.http.post<any>(this.apiUrl+"/login", usuario));
+    return await firstValueFrom (this.http.post<Usuario>(this.apiUrl+"/login", usuario));
   }
 
   getUsuarios(): Observable<Usuario[]> {

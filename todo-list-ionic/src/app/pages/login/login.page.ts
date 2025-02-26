@@ -7,6 +7,8 @@ import { Usuario } from '../../models/usuario.model';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { AuthService } from 'src/app/services/auth.service';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,8 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder, 
     private navCtrl: NavController,
     private usuarioService: UsuarioService,
+    private tokenService: TokenService,
+    private authService: AuthService
   ) { 
     this.loginForm = this.fb.group({
       loguin: ['', [Validators.required]],
@@ -38,7 +42,8 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.authService.logout();
+    this.tokenService.deleteToken();
   }
 
   togglePassword() {
@@ -51,9 +56,13 @@ export class LoginPage implements OnInit {
       this.usuario = await this.usuarioService.loguinAsync(this.usuario);
       if(!this.usuario.id || this.usuario.id == 0){
         alert('usuario ou senha não existe');
-        this.navCtrl.navigateForward('');
+        this.navCtrl.navigateForward('/login');
         return;
       }
+      this.authService.login();
+      const token = (await this.tokenService.tokenAsync()).sub;
+      this.tokenService.setToken(token);
+      this.usuarioService.usuario = this.usuario;
       this.navCtrl.navigateForward('/home'); 
     } else {
       console.log('Formulário inválido');
