@@ -10,6 +10,7 @@ import com.prodesp.prodesp.repositories.CategoriasRepository;
 import com.prodesp.prodesp.utils.ConvertUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,33 @@ public class CategoriasService {
     
     public Categorias save(Categorias categoria) { 
         return repository.save(categoria); 
+    }
+    
+    public CategoriasDTO saveDTO(CategoriasDTO categoriadto) { 
+        Categorias categoria = new Categorias();
+        categoria.setNome(categoriadto.getNome());
+        categoria = save(categoria); 
+        return convertUtil.convertToDto(categoria);
+    }
+    
+    public CategoriasDTO updateDTO(Long id, CategoriasDTO categoriadto) { 
+        Categorias categoria = new Categorias();
+        categoria.setId(id);
+        categoria.setNome(categoriadto.getNome());
+        categoria = save(categoria); 
+        return convertUtil.convertToDto(categoria);
+    }
+    
+    public CategoriasDTO findDTOById(Long id){
+        Optional<Categorias> op = repository.findById(id);
+        CategoriasDTO dto = new CategoriasDTO();
+        if(op.isPresent()){
+            dto = convertUtil.convertToDto(op.get());
+        }
+        return dto;
+    }
+    
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 }

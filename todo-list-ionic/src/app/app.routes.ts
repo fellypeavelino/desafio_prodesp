@@ -27,4 +27,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/categoria-form/categoria-form.page').then( m => m.CategoriaFormPage),
     canActivate: [authGuard]
   },
+  {
+    path: 'categoria-form/:id',
+    loadComponent: () => import('./pages/categoria-form/categoria-form.page').then( m => m.CategoriaFormPage),
+    canActivate: [authGuard]
+  },
 ];
