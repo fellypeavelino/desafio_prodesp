@@ -32,4 +32,19 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/categoria-form/categoria-form.page').then( m => m.CategoriaFormPage),
     canActivate: [authGuard]
   },
+  {
+    path: 'usuarios',
+    loadComponent: () => import('./pages/usuarios/usuarios.page').then( m => m.UsuariosPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'usuario-form',
+    loadComponent: () => import('./pages/usuario-form/usuario-form.page').then( m => m.UsuarioFormPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'usuario-form/:id',
+    loadComponent: () => import('./pages/usuario-form/usuario-form.page').then( m => m.UsuarioFormPage),
+    canActivate: [authGuard]
+  },
 ];

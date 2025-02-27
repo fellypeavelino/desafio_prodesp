@@ -24,7 +24,19 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(this.apiUrl);
   }
 
-  adicionarUsuario(usuario: Usuario): Observable<Usuario> {
+  addUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.post<Usuario>(this.apiUrl, usuario);
+  }
+
+  updateUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/${usuario.id}`, usuario);
+  }
+
+  deleteUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  } 
+  
+  getUsuario(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 }

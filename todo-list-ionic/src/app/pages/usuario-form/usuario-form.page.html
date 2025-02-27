@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ isEditing ? 'Editar Usuário' : 'Novo Usuário' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="usuarioForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Login</ion-label>
+        <ion-input formControlName="loguin"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="usuarioForm.get('loguin')?.invalid && usuarioForm.get('loguin')?.touched">
+        O login deve ter pelo menos 3 caracteres.
+      </ion-text>
+
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input formControlName="senha" type="password"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="usuarioForm.get('senha')?.invalid && usuarioForm.get('senha')?.touched">
+        A senha deve ter pelo menos 6 caracteres.
+      </ion-text>
+    </ion-list>
+
+    <ion-button expand="full" (click)="saveUsuario()" [disabled]="usuarioForm.invalid">
+      Salvar
+    </ion-button>
+  </form>
+</ion-content>

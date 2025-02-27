@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { 
+  IonContent, IonHeader, IonTitle, IonToolbar,
+  IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton
+} from '@ionic/angular/standalone';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 

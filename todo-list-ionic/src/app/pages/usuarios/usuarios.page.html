@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Usuários</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="redirecionarParaForm()">Adicionar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let usuario of usuarios">
+      <ion-label>
+        <h2>{{ usuario.loguin }}</h2>
+        <p>ID: {{ usuario.id }}</p>
+      </ion-label>
+      <ion-button color="primary" (click)="redirecionarParaForm(usuario.id)">
+        Editar
+      </ion-button>
+      <ion-button color="danger" (click)="deleteUsuario(usuario.id)">Excluir</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
