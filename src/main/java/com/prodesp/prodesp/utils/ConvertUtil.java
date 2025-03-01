@@ -6,8 +6,10 @@ package com.prodesp.prodesp.utils;
 
 
 import com.prodesp.prodesp.dtos.CategoriasDTO;
+import com.prodesp.prodesp.dtos.TarefasDTO;
 import com.prodesp.prodesp.dtos.UsuarioDTO;
 import com.prodesp.prodesp.entities.Categorias;
+import com.prodesp.prodesp.entities.Tarefas;
 import com.prodesp.prodesp.entities.Usuarios;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -36,4 +38,14 @@ public class ConvertUtil {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(categoriaDto, Categorias.class);
     }
+    
+    public TarefasDTO convertToDto(Tarefas tarefa) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(tarefa, TarefasDTO.class);
+    }
+
+    public Tarefas convertToEntity(TarefasDTO tarefaDto) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(tarefaDto, Tarefas.class);
+    }    
 }
