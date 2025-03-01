@@ -47,4 +47,19 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/usuario-form/usuario-form.page').then( m => m.UsuarioFormPage),
     canActivate: [authGuard]
   },
+  {
+    path: 'tarefas',
+    loadComponent: () => import('./pages/tarefas/tarefas.page').then( m => m.TarefasPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'tarefa-form',
+    loadComponent: () => import('./pages/tarefa-form/tarefa-form.page').then( m => m.TarefaFormPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'tarefa-form/:id',
+    loadComponent: () => import('./pages/tarefa-form/tarefa-form.page').then( m => m.TarefaFormPage),
+    canActivate: [authGuard]
+  },
 ];
