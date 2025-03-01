@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario.model';
 import { firstValueFrom } from 'rxjs';
+import { RequestPage } from '../models/request.page.model';
 
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
@@ -22,6 +23,10 @@ export class UsuarioService {
 
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUrl);
+  }
+
+  getPagination(param:RequestPage): Observable<any> {
+    return this.http.post<any>(this.apiUrl+"/paginacao", param);
   }
 
   addUsuario(usuario: Usuario): Observable<Usuario> {

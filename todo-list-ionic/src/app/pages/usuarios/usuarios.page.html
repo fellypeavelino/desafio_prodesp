@@ -1,5 +1,55 @@
 <ion-header>
   <ion-toolbar>
+    <ion-title>Lista de Usuários</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="redirecionarParaForm()">Adicionar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!-- Barra de Pesquisa -->
+  <ion-item>
+    <ion-label position="floating">Buscar Usuário</ion-label>
+    <ion-input [(ngModel)]="searchTerm" (ionInput)="buscarUsuarios()" placeholder="Digite o nome ou login"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col size="3"><strong>ID</strong></ion-col>
+      <ion-col size="6"><strong>Login</strong></ion-col>
+      <ion-col size="3"><strong>Ações</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let usuario of usuarios">
+      <ion-col size="3">{{ usuario.id }}</ion-col>
+      <ion-col size="6">{{ usuario.loguin }}</ion-col>
+      <ion-col size="3">
+        <ion-button color="primary" size="small" (click)="redirecionarParaForm(usuario.id)">Editar</ion-button>
+        <ion-button color="danger" size="small" (click)="deleteUsuario(usuario.id)">Excluir</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-footer class="ion-padding">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-button fill="clear" (click)="goToPage(1)" [disabled]="page === 1">«</ion-button>
+        <ion-button *ngFor="let p of getPageRange()" 
+                    fill="solid" 
+                    [color]="p === page ? 'primary' : 'light'"
+                    (click)="goToPage(p)">
+          {{ p }}
+        </ion-button>
+        <ion-button fill="clear" (click)="goToPage(totalPages)" [disabled]="page === totalPages">»</ion-button>
+      </ion-row>
+    </ion-grid>
+    <p class="ion-text-center">Página {{ page }} de {{ totalPages }}</p>
+  </ion-footer>
+</ion-content>
+
+<!-- <ion-header>
+
+  <ion-toolbar>
     <ion-title>Usuários</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="redirecionarParaForm()">Adicionar</ion-button>
@@ -20,5 +70,33 @@
       <ion-button color="danger" (click)="deleteUsuario(usuario.id)">Excluir</ion-button>
     </ion-item>
   </ion-list>
-</ion-content>
+
+
+  <ion-footer class="ion-padding">
+    <ion-grid>
+      <ion-row class="ion-justify-content-between">
+        <ion-col size="6">
+          <ion-button expand="full" (click)="prevPage()" [disabled]="page === 1">
+            Anterior
+          </ion-button>
+        </ion-col>
+        <ion-col size="6">
+          <ion-button expand="full" (click)="nextPage()" [disabled]="page * size >= totalUsuarios">
+            Próximo
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p class="ion-text-center">Página {{ page }} de {{ retornarTotal() }}</p>
+  </ion-footer> -->
+
+  <!-- <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais usuários...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> 
+  -->
+<!-- 
+</ion-content> -->
+
+
 

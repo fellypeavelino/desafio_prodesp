@@ -4,7 +4,9 @@
  */
 package com.prodesp.prodesp.controllers;
 
+import com.prodesp.prodesp.dtos.RequestPageDTO;
 import com.prodesp.prodesp.dtos.UsuarioDTO;
+import com.prodesp.prodesp.dtos.UsuarioPaginadosDTO;
 import com.prodesp.prodesp.entities.Usuarios;
 import com.prodesp.prodesp.services.UsuariosService;
 import jakarta.validation.Valid;
@@ -68,5 +70,10 @@ public class UsuariosController {
     @GetMapping("/{id}")
     public UsuarioDTO findDTOById(@PathVariable Long id){
         return usuarioService.findDTOById(id);
+    }
+    
+    @PostMapping("/paginacao")
+    public UsuarioPaginadosDTO getUsuariosPaginadosEOrdenadosPorQuery(@Valid @RequestBody RequestPageDTO dto) {
+        return usuarioService.getUsuariosPaginadosEOrdenadosPorQuery(dto);
     }
 }

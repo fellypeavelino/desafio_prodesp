@@ -4,7 +4,9 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.dtos.RequestPageDTO;
 import com.prodesp.prodesp.dtos.UsuarioDTO;
+import com.prodesp.prodesp.dtos.UsuarioPaginadosDTO;
 import com.prodesp.prodesp.entities.Usuarios;
 import com.prodesp.prodesp.repositories.UsuariosRepository;
 import com.prodesp.prodesp.utils.ConvertUtil;
@@ -12,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -81,5 +87,37 @@ public class UsuariosService {
             dto = convertUtil.convertToDto(op.get());
         }
         return dto;
+    }
+    
+    public UsuarioPaginadosDTO getUsuariosPaginadosEOrdenadosPorQuery(RequestPageDTO dto) {
+        UsuarioPaginadosDTO result = new UsuarioPaginadosDTO();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        result.setParam(dto);
+
+        String sortBy = dto.getSortBy();
+        String sortDir = dto.getSortDir();
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(dto.getPage(), dto.getSize(), sort);
+
+        Page<Usuarios> page = null;
+        long total = 0;
+        if (dto.getFiltro() != null && !dto.getFiltro().isEmpty()) {
+            page = usuarioRepository.findPageByFiltro(dto.getFiltro(), pageable);
+            total = usuarioRepository.findFiltro(dto.getFiltro()).size();
+        } else {
+            page = usuarioRepository.findPage(pageable);
+            total = usuarioRepository.count();
+        }
+
+        usuariosDTO = this.convertToListDto(page.getContent());
+        result.setUsuarioDto(usuariosDTO);
+        result.setTotal(total);
+        return result;
+    }
+    
+    private List<UsuarioDTO> convertToListDto(List<Usuarios> usuarios) {
+        List<UsuarioDTO> listResult = new ArrayList<>();
+        usuarios.forEach(c -> listResult.add(convertUtil.convertToDto(c)));
+        return listResult;
     }
 }
