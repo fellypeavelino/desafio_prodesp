@@ -1,13 +1,58 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>tarefas</ion-title>
+    <ion-title>Lista de Tarefas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="redirecionarParaForm()">Adicionar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tarefas</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+    <!-- Barra de Pesquisa -->
+  <ion-item>
+    <ion-label position="floating">Buscar Tarefa</ion-label>
+    <ion-input [(ngModel)]="searchTerm" (ionInput)="buscarTarefas()" placeholder="Digite o título ou descrição"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row class="header">
+      <ion-col size="3"><strong>ID</strong></ion-col>
+      <ion-col size="6"><strong>Título</strong></ion-col>
+      <ion-col size="3"><strong>Descição</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let tarefa of tarefas">
+      <ion-col size="3">{{ tarefa.id }}</ion-col>
+      <ion-col size="3">{{ tarefa.titulo }}</ion-col>
+      <ion-col size="6">{{ tarefa.descricao }}</ion-col>
+      <ion-col size="3">
+        <ion-button color="primary" size="small" (click)="redirecionarParaForm(tarefa.id)">Editar</ion-button>
+        <ion-button color="danger" size="small" (click)="deleteTarefa(tarefa.id)">Excluir</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-footer class="ion-padding">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-button fill="clear" (click)="goToPage(1)" [disabled]="page === 1">«</ion-button>
+        <ion-button *ngFor="let p of getPageRange()" 
+                    fill="solid" 
+                    [color]="p === page ? 'primary' : 'light'"
+                    (click)="goToPage(p)">
+          {{ p }}
+        </ion-button>
+        <ion-button fill="clear" (click)="goToPage(totalPages)" [disabled]="page === totalPages">»</ion-button>
+      </ion-row>
+    </ion-grid>
+    <p class="ion-text-center">Página {{ page }} de {{ totalPages }}</p>
+  </ion-footer>
+  <!--
+  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais tarefas...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> 
+-->
 </ion-content>
+
+
+

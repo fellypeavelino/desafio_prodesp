@@ -4,6 +4,6 @@ export interface Tarefa {
     descricao?: string;
     completada: boolean;
     data: string;
-    usuarioId: number;
-    categoriaId?: number;
+    usuario_id: number;
+    categoria_id?: number;
 }
