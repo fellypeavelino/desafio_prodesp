@@ -50,7 +50,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             String[] statusCategoria = {"Em espera", "Priorizado", "Iniciado", "Concluído"};
             for (String string : statusCategoria) {
                 Categorias c = new Categorias();
-                c.setCor("");
+                c.setCor("#24dba4");
                 c.setNome(string);
                 categoriasRepository.save(c);
             }
