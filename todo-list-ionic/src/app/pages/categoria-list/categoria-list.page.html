@@ -11,6 +11,11 @@
   <ion-list>
     <ion-item *ngFor="let categoria of categorias">
       <ion-label>{{ categoria.nome }}</ion-label>
+      <ion-label>
+        <div [ngStyle]="{ 'background-color': categoria.cor }" 
+             style="width: 30px; height: 30px; border-radius: 50%; display: inline-block;">
+        </div>
+      </ion-label>
       <ion-buttons slot="end">
         <ion-button color="primary" (click)="redirecionarParaForm(categoria.id)">
           Editar

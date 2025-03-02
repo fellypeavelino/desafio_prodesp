@@ -33,6 +33,9 @@ public class Categorias {
     
     @Column(nullable = false, unique = true)
     private String nome;
+
+    @Column(nullable = false)
+    private String cor;
     
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefas> tarefas;

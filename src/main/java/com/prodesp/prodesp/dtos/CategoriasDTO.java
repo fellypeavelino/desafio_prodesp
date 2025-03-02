@@ -16,4 +16,6 @@ public class CategoriasDTO {
     private Long id;
     @NotNull(message = "O campo 'nome' não pode ser nulo.")
     private String nome;
+    @NotNull(message = "O campo 'cor' não pode ser nulo.")
+    private String cor;
 }

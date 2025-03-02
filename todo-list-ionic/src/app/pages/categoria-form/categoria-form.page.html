@@ -10,6 +10,10 @@
       <ion-label position="floating">Nome</ion-label>
       <ion-input [(ngModel)]="categoria.nome"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Cor</ion-label>
+      <input type="color" [(ngModel)]="categoria.cor" style="border: none; background: none; width: 50px; height: 30px;">
+    </ion-item>
   </ion-list>
 
   <ion-button expand="full" (click)="saveCategoria()">Salvar</ion-button>

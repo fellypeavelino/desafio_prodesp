@@ -26,7 +26,7 @@ import { Location } from '@angular/common';
 })
 export class CategoriaFormPage implements OnInit {
 
-  categoria: Categoria = { id: 0, nome: '', tarefas: [] };
+  categoria: Categoria = { id: 0, nome: '', cor:'', tarefas: [] };
   isEdit = false;
 
   constructor(

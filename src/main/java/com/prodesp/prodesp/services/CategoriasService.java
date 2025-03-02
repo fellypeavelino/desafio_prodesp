@@ -47,6 +47,7 @@ public class CategoriasService {
     public CategoriasDTO saveDTO(CategoriasDTO categoriadto) { 
         Categorias categoria = new Categorias();
         categoria.setNome(categoriadto.getNome());
+        categoria.setCor(categoriadto.getCor());
         categoria = save(categoria); 
         return convertUtil.convertToDto(categoria);
     }
@@ -55,6 +56,7 @@ public class CategoriasService {
         Categorias categoria = new Categorias();
         categoria.setId(id);
         categoria.setNome(categoriadto.getNome());
+        categoria.setCor(categoriadto.getCor());
         categoria = save(categoria); 
         return convertUtil.convertToDto(categoria);
     }
