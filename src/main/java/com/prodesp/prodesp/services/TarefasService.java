@@ -103,7 +103,7 @@ public class TarefasService {
             total = repository.findFiltro(dto.getFiltro(), usuario_id).size();
         } else {
             page = repository.findPage(pageable, usuario_id);
-            total = repository.count();
+            total = repository.totalTarefasNaoCompletadas(usuario_id);
         }
         List<Tarefas> listaTarefas = page.getContent();
         for (Tarefas ltaTarefa : listaTarefas) {

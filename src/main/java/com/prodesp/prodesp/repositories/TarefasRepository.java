@@ -40,4 +40,7 @@ public interface TarefasRepository extends JpaRepository<Tarefas, Long> {
     
     @Query("SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId AND t.completada = false ORDER BY t.id DESC ")
     Page<Tarefas> findPage(Pageable pageable, @Param("usuarioId") Long usuarioId);
+    
+    @Query("SELECT COUNT(t) FROM Tarefas t WHERE t.usuario.id = :usuarioId AND t.completada = false")
+    Long totalTarefasNaoCompletadas(@Param("usuarioId") Long usuarioId);
 }

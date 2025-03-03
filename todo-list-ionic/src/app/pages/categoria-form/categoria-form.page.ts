@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonList, IonItem, IonLabel, IonInput, IonButton, 
@@ -24,21 +24,28 @@ import { MenuComponent } from "src/app/components/menu/menu.component";
     IonToolbar, CommonModule, FormsModule,
     IonList, IonItem, IonLabel, IonInput, 
     IonButton, IonText, IonIcon, IonButtons, 
-    IonMenuButton, MenuComponent
+    IonMenuButton, MenuComponent, ReactiveFormsModule
   ]
 })
 export class CategoriaFormPage implements OnInit {
 
   categoria: Categoria = { id: 0, nome: '', cor:'', tarefas: [] };
   isEdit = false;
+  categoriaForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: NavController,
     private categoriaService: CategoriaService,
     private toastController: ToastController,
-    private location: Location
-  ) {}
+    private location: Location,
+    private fb: FormBuilder,
+  ) {
+    this.categoriaForm = this.fb.group({
+      nome: ['', [Validators.required]],
+      cor: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -46,11 +53,15 @@ export class CategoriaFormPage implements OnInit {
       this.isEdit = true;
       this.categoriaService.getCategoria(+id).subscribe(data => {
         this.categoria = data;
+        this.categoriaForm.patchValue(data);
       });
     }
   }
 
   saveCategoria() {
+    const {nome, cor} = this.categoriaForm.value;
+    this.categoria.nome = nome;
+    this.categoria.cor = cor;
     if (this.isEdit) {
       this.categoriaService.updateCategoria(this.categoria.id, this.categoria).subscribe(() => {
         this.showToast('Categoria atualizada com sucesso!');
