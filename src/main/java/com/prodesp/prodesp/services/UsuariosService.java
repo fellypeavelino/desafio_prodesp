@@ -41,7 +41,7 @@ public class UsuariosService {
     public List<UsuarioDTO> findDTOAll() { 
         List<Usuarios> list = findAll();
         List<UsuarioDTO> listResult = new ArrayList<>();
-        list.forEach(o -> listResult.add(convertUtil.convertToDto(o)));
+        list.forEach(o -> listResult.add(getConvertUtil().convertToDto(o)));
         return listResult;
     }
     
@@ -54,14 +54,14 @@ public class UsuariosService {
         usuario.setLoguin(usuarioDto.getLoguin());
         usuario.setSenha(usuarioDto.getSenha());
         usuario = usuarioRepository.save(usuario); 
-        return convertUtil.convertToDto(usuario);
+        return getConvertUtil().convertToDto(usuario);
     }
     
     public UsuarioDTO updateDTO(Long id, UsuarioDTO usuarioDto) {
         usuarioDto.setId(id);
-        Usuarios usuario = convertUtil.convertToEntity(usuarioDto);
+        Usuarios usuario = getConvertUtil().convertToEntity(usuarioDto);
         usuario = usuarioRepository.save(usuario); 
-        return convertUtil.convertToDto(usuario);
+        return getConvertUtil().convertToDto(usuario);
     }
     
     public void delete(Long id){
@@ -75,7 +75,7 @@ public class UsuariosService {
     public UsuarioDTO encontrarPorLoguinESenhaDTO(UsuarioDTO dto) {
         Optional<Usuarios> op = this.encontrarPorLoguinESenha(dto.getLoguin(), dto.getSenha());
         if (op.isPresent()) {
-            dto = convertUtil.convertToDto(op.get());
+            dto = getConvertUtil().convertToDto(op.get());
         }
         return dto;
     }
@@ -84,7 +84,7 @@ public class UsuariosService {
         UsuarioDTO dto = new UsuarioDTO();
         Optional<Usuarios> op = usuarioRepository.findById(id);
         if (op.isPresent()) {
-            dto = convertUtil.convertToDto(op.get());
+            dto = getConvertUtil().convertToDto(op.get());
         }
         return dto;
     }
@@ -117,7 +117,21 @@ public class UsuariosService {
     
     private List<UsuarioDTO> convertToListDto(List<Usuarios> usuarios) {
         List<UsuarioDTO> listResult = new ArrayList<>();
-        usuarios.forEach(c -> listResult.add(convertUtil.convertToDto(c)));
+        usuarios.forEach(c -> listResult.add(getConvertUtil().convertToDto(c)));
         return listResult;
+    }
+
+    /**
+     * @return the convertUtil
+     */
+    public ConvertUtil getConvertUtil() {
+        return convertUtil;
+    }
+
+    /**
+     * @param convertUtil the convertUtil to set
+     */
+    public void setConvertUtil(ConvertUtil convertUtil) {
+        this.convertUtil = convertUtil;
     }
 }
