@@ -24,7 +24,11 @@ export class MenuComponent  implements OnInit {
   ngOnInit() {}
 
   navigateTo(page:string){
-    this.navCtrl.navigateForward(`/${page}`);
+    this.navCtrl.navigateForward(`/${page}`)
+    .then(res => {
+      location.reload();
+    })
+    ;
   }
 
   logout(){

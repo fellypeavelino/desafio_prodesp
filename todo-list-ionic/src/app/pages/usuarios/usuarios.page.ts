@@ -5,14 +5,14 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonButton, IonList, IonItem, IonLabel, IonButtons,
   IonInfiniteScroll, IonInfiniteScrollContent, IonFooter,
-  IonGrid, IonRow, IonCol, IonInput
+  IonGrid, IonRow, IonCol, IonInput, IonMenuButton
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { AlertController } from '@ionic/angular';
 import { RequestPage } from 'src/app/models/request.page.model';
-
+import { MenuComponent } from "src/app/components/menu/menu.component";
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.page.html',
@@ -24,7 +24,7 @@ import { RequestPage } from 'src/app/models/request.page.model';
     IonButton, IonList, IonItem, IonLabel, 
     IonButtons, IonInfiniteScroll, IonInfiniteScrollContent,
     IonGrid, IonRow, IonCol, IonFooter,
-    IonInput
+    IonInput, MenuComponent, IonMenuButton
   ]
 })
 export class UsuariosPage implements OnInit {

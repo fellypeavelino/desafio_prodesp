@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonButton, IonList, IonItem, IonLabel, IonButtons,
-  NavController
+  NavController, IonMenuButton
 } from '@ionic/angular/standalone';
 import { CategoriaService } from '../../services/categoria.service';
 import { Categoria } from '../../models/categoria.model';
 import { AlertController, ToastController } from '@ionic/angular';
+import { MenuComponent } from "src/app/components/menu/menu.component";
 
 @Component({
   selector: 'app-categoria-list',
@@ -19,7 +20,7 @@ import { AlertController, ToastController } from '@ionic/angular';
     IonContent, IonHeader, IonTitle, 
     IonToolbar, CommonModule, FormsModule,
     IonButton, IonList, IonItem, IonLabel, 
-    IonButtons
+    IonButtons, MenuComponent, IonMenuButton
   ]
 })
 export class CategoriaListPage implements OnInit {
