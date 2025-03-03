@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, NavController } from '@ionic/angular/standalone';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario.model';
 
@@ -14,10 +14,11 @@ export class HomePage implements OnInit  {
 
   constructor(
     private usuarioService: UsuarioService,
+    private navCtrl: NavController,
   ) {}
 
   ngOnInit() {
-
+    this.navCtrl.navigateForward('/tarefas');
   }
 
 
