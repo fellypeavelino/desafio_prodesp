@@ -80,6 +80,8 @@ public class TarefasService {
         Optional<Tarefas> op = repository.findById(id);
         if (op.isPresent()) {
             dto = convertUtil.convertToDto(op.get());
+            Long categoria_id = op.get().getCategoria().getId();
+            dto.setCategoria_id(categoria_id);
         }
         return dto;
     }
@@ -103,8 +105,14 @@ public class TarefasService {
             page = repository.findPage(pageable, usuario_id);
             total = repository.count();
         }
-
-        tarefasDTO = this.convertToListDto(page.getContent());
+        List<Tarefas> listaTarefas = page.getContent();
+        for (Tarefas ltaTarefa : listaTarefas) {
+            TarefasDTO tarefaDto = convertUtil.convertToDto(ltaTarefa);
+            Long categori_id = ltaTarefa.getCategoria().getId();
+            tarefaDto.setCategoria_id(categori_id);
+            tarefasDTO.add(tarefaDto);
+        }
+        //tarefasDTO = this.convertToListDto(page.getContent());
         result.setTarefasDto(tarefasDTO);
         result.setTotal(total);
         return result;
