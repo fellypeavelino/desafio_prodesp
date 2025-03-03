@@ -30,7 +30,9 @@
       <ion-col size="3">{{ tarefa.titulo }}</ion-col>
       <ion-col size="3">{{ tarefa.descricao }}</ion-col>
       <ion-col size="3">
-        <ion-select [(ngModel)]="tarefa.categoria_id">
+        <ion-select [(ngModel)]="tarefa.categoria_id"
+        (ionChange)="handleChange($event, tarefa)"
+        >
           <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
             {{ categoria.nome }}
           </ion-select-option>

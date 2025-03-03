@@ -34,7 +34,7 @@ public class CategoriasService {
     }
     
     public List<CategoriasDTO> findDTOAll() { 
-        List<Categorias> categorias = repository.findAll(); 
+        List<Categorias> categorias = repository.findAllOrderedByIdDesc(); 
         List<CategoriasDTO> categoriasDto = new ArrayList<>();
         categorias.forEach(c -> categoriasDto.add(convertUtil.convertToDto(c)));
         return categoriasDto;

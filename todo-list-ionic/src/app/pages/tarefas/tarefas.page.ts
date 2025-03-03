@@ -7,7 +7,7 @@ import {
   IonInfiniteScroll, IonInfiniteScrollContent, IonFooter,
   IonGrid, IonRow, IonCol, IonInput, IonSelect, IonSelectOption
 } from '@ionic/angular/standalone';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { RequestPage } from 'src/app/models/request.page.model';
 import { Tarefa } from 'src/app/models/tarefa.model';
@@ -49,7 +49,8 @@ export class TarefasPage implements OnInit {
     private categoriaService: CategoriaService,
     private tarefaService: TarefaService, 
     private alertCtrl: AlertController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toastController: ToastController,
   ) { }
 
   ngOnInit() {
@@ -162,5 +163,23 @@ export class TarefasPage implements OnInit {
 
   logout(){
     this.navCtrl.navigateForward('/login'); 
+  }
+
+  handleChange($event:any, tarefa:Tarefa){
+    console.log($event.detail.value, tarefa);
+    const id = tarefa.id || 0;
+    tarefa.categoria_id = $event.detail.value;
+    tarefa.usuario_id = this.usuario.id;
+    this.tarefaService.updateTarefa(id, tarefa).subscribe(() => {
+      this.showToast('Tarefa atualizada com sucesso!');
+    });
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 }
