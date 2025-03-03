@@ -5,7 +5,8 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonButton, IonList, IonItem, IonLabel, IonButtons,
   IonInfiniteScroll, IonInfiniteScrollContent, IonFooter,
-  IonGrid, IonRow, IonCol, IonInput, IonSelect, IonSelectOption
+  IonGrid, IonRow, IonCol, IonInput, IonSelect, IonSelectOption,
+  IonMenu, IonMenuButton
 } from '@ionic/angular/standalone';
 import { NavController, ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -16,6 +17,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
+import { MenuComponent } from "src/app/components/menu/menu.component";
 
 @Component({
   selector: 'app-tarefas',
@@ -28,7 +30,8 @@ import { Usuario } from 'src/app/models/usuario.model';
     IonButton, IonList, IonItem, IonLabel, 
     IonButtons, IonInfiniteScroll, IonInfiniteScrollContent,
     IonGrid, IonRow, IonCol, IonFooter,
-    IonInput, IonSelect, IonSelectOption
+    IonInput, IonSelect, IonSelectOption,
+    MenuComponent, IonMenu, IonMenuButton
   ]
 })
 export class TarefasPage implements OnInit {
