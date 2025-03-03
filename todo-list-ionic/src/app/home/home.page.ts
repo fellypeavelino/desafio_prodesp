@@ -18,7 +18,9 @@ export class HomePage implements OnInit  {
   ) {}
 
   ngOnInit() {
-    this.navCtrl.navigateForward('/tarefas');
+    this.navCtrl.navigateForward('/tarefas').then(res => {
+      location.reload();
+    });
   }
 
 
