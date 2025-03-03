@@ -34,7 +34,7 @@ import { MenuComponent } from "src/app/components/menu/menu.component";
 })
 export class TarefaFormPage implements OnInit {
 
-  tarefaForm!: FormGroup;
+  tarefaForm: FormGroup;
   isEditing = false;
   tarefaId: number | null = null;
   categorias:Categoria[] = [];
@@ -58,7 +58,8 @@ export class TarefaFormPage implements OnInit {
     this.tarefaForm = this.fb.group({
       titulo: ['', [Validators.required]],
       descricao: ['', [Validators.required]],
-      categoria_id: ['', [Validators.required]]
+      categoria_id: ['', [Validators.required]],
+      completada: [false]
     });
   }
 
@@ -68,6 +69,7 @@ export class TarefaFormPage implements OnInit {
       this.isEdit = true;
       this.tarefaService.getTarefa(+id).subscribe(data => {
         this.tarefa = data;
+        this.tarefaForm.patchValue(data);
       });
     }
     this.categoriaService.getCategorias().subscribe(response => {
@@ -77,6 +79,11 @@ export class TarefaFormPage implements OnInit {
   }
 
   saveTarefa(){
+    const {titulo, descricao, categoria_id, completada} = this.tarefaForm.value;
+    this.tarefa.titulo = titulo;
+    this.tarefa.descricao = descricao;
+    this.tarefa.categoria_id = categoria_id;
+    this.tarefa.completada = completada;
     this.tarefa.usuario_id = this.usuario.id;
     if (this.isEdit) {
       const id = this.route.snapshot.paramMap.get('id') || "";

@@ -10,29 +10,31 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input [(ngModel)]="tarefa.titulo"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Descrição</ion-label>
-      <ion-input [(ngModel)]="tarefa.descricao"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Categoria</ion-label>
-      <ion-select [(ngModel)]="tarefa.categoria_id">
-        <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
-          {{ categoria.nome }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Tarefa Concluída</ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="tarefa.completada"></ion-checkbox>
-    </ion-item>
-  </ion-list>
+  <form [formGroup]="tarefaForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Título</ion-label>
+        <ion-input formControlName="titulo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Descrição</ion-label>
+        <ion-input formControlName="descricao"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Categoria</ion-label>
+        <ion-select formControlName="categoria_id">
+          <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+            {{ categoria.nome }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tarefa Concluída</ion-label>
+        <ion-checkbox slot="start" formControlName="completada"></ion-checkbox>
+      </ion-item>
+    </ion-list>
 
-  <ion-button expand="full"  (click)="saveTarefa()">Salvar</ion-button>
+    <ion-button expand="full"  (click)="saveTarefa()" [disabled]="tarefaForm.invalid">Salvar</ion-button>
+  </form>
 </ion-content>
 </div>
