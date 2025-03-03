@@ -4,6 +4,8 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.config.RabbitMQSetup;
+import static com.prodesp.prodesp.config.RabbitMQSetup.createExchangeAndQueue;
 import com.prodesp.prodesp.entities.Tarefas;
 import com.prodesp.prodesp.repositories.TarefasRepository;
 import java.io.OutputStream;
@@ -38,7 +40,7 @@ public class TarefaScheduler {
     @Scheduled(fixedRate = 60000) // Executa a cada 1 minuto
     public void verificarTarefasPendentes() {
         logger.info("Verificando tarefas pendentes...");
-        this.executeCurl();
+        RabbitMQSetup.createExchangeAndQueue();
         LocalDateTime umDiaAtras = LocalDateTime.now().minusDays(1);
         List<Tarefas> tarefasAtrasadas = tarefaRepository.findByCompletadaAndDataBefore(false, umDiaAtras);
 
@@ -49,26 +51,4 @@ public class TarefaScheduler {
         }
     }
     
-    public void executeCurl() {
-        try {
-            String urlString = "http://localhost:15672/api/exchanges/%2F/tarefa.exchange";
-            URL url = new URL(urlString);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setRequestProperty("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString("guest:guest".getBytes()));
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
-
-            String jsonBody = "{\"type\":\"direct\",\"durable\":true}";
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonBody.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
-
-            int responseCode = connection.getResponseCode();
-            System.out.println("Resposta do servidor: " + responseCode);
-        } catch (Exception e) {
-            System.err.println("Erro ao criar exchange: " + e.getMessage());
-        }
-    }
 }

@@ -22,13 +22,13 @@ public class RabbitMQConfig {
     public static final String ROUTING_KEY = "tarefa.routingKey";
 
     @Bean
-    public DirectExchange exchange() {
-        return new DirectExchange(EXCHANGE_NAME);
+    public Queue queue() {
+        return QueueBuilder.durable(QUEUE_NAME).build(); // Garante que a fila seja persistente
     }
 
     @Bean
-    public Queue queue() {
-        return new Queue(QUEUE_NAME, true);
+    public DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
     }
 
     @Bean
