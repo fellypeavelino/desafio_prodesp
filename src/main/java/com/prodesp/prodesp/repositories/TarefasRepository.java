@@ -5,6 +5,7 @@
 package com.prodesp.prodesp.repositories;
 
 import com.prodesp.prodesp.entities.Tarefas;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -43,4 +44,6 @@ public interface TarefasRepository extends JpaRepository<Tarefas, Long> {
     
     @Query("SELECT COUNT(t) FROM Tarefas t WHERE t.usuario.id = :usuarioId AND t.completada = false")
     Long totalTarefasNaoCompletadas(@Param("usuarioId") Long usuarioId);
+    
+    List<Tarefas> findByCompletadaAndDataBefore(Boolean completada, LocalDateTime data);
 }
