@@ -189,4 +189,12 @@ export class TarefasPage implements OnInit {
     });
     toast.present();
   }
+
+  trazerCorDacategoria(id_categoria:any){
+    let result = this.categorias.filter(c => c.id == id_categoria);
+    if (result.length == 1) {
+      return result[0].cor;
+    }
+    return 'black';
+  }
 }
