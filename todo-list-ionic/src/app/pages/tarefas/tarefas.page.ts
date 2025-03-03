@@ -160,4 +160,7 @@ export class TarefasPage implements OnInit {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
+  logout(){
+    this.navCtrl.navigateForward('/login'); 
+  }
 }
