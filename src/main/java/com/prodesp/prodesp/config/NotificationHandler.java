@@ -14,7 +14,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NotificationHandler extends TextWebSocketHandler {
     private static final List<WebSocketSession> sessions = new ArrayList<>();
 

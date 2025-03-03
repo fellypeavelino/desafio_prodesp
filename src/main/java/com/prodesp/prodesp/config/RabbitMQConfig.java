@@ -17,22 +17,23 @@ import org.springframework.amqp.core.*;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String EXCHANGE_NAME = "tarefa.exchange";
-    public static final String QUEUE_NAME = "tarefa.queue";
-    public static final String ROUTING_KEY = "tarefa.routingKey";
+    private static final String QUEUE_NAME = "tarefa.atrasada";
+    private static final String EXCHANGE_NAME = "tarefa.exchange";
+    private static final String ROUTING_KEY = "tarefa.atrasada";
 
     @Bean
     public Queue queue() {
-        return QueueBuilder.durable(QUEUE_NAME).build(); // Garante que a fila seja persistente
+        return new Queue(QUEUE_NAME, true);
     }
 
     @Bean
-    public DirectExchange exchange() {
-        return new DirectExchange(EXCHANGE_NAME);
+    public TopicExchange exchange() {
+        return new TopicExchange(EXCHANGE_NAME);
     }
 
     @Bean
-    public Binding binding(Queue queue, DirectExchange exchange) {
+    public Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 }
+

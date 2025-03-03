@@ -4,6 +4,7 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.config.NotificationHandler;
 import com.prodesp.prodesp.config.RabbitMQSetup;
 import static com.prodesp.prodesp.config.RabbitMQSetup.createExchangeAndQueue;
 import com.prodesp.prodesp.entities.Tarefas;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TarefaScheduler {
+    
+    @Autowired
+    private NotificationHandler notificationHandler;
     
     private static final Logger logger = LoggerFactory.getLogger(TarefaScheduler.class);
     
@@ -37,6 +42,7 @@ public class TarefaScheduler {
     }
 
     //@Scheduled(fixedRate = 3600000) // Executa a cada 1 hora (3600000 ms)
+    //@Scheduled(fixedRate = 600000) // 600000 milissegundos = 10 minutos
     @Scheduled(fixedRate = 60000) // Executa a cada 1 minuto
     public void verificarTarefasPendentes() {
         logger.info("Verificando tarefas pendentes...");
@@ -47,6 +53,7 @@ public class TarefaScheduler {
         for (Tarefas tarefa : tarefasAtrasadas) {
             String mensagem = "A tarefa '" + tarefa.getTitulo() + "' está atrasada!";
             tarefaProducer.enviarMensagem(mensagem);
+            notificationHandler.sendNotification("Tarefa pendente: " + mensagem);
             logger.info("Notificação enviada para tarefa atrasada: {}", tarefa.getTitulo());
         }
     }

@@ -28,7 +28,7 @@ public class SecurityConfig {
         
         String[] urlsPermitidas = {
             "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/token", "/usuarios/login",
-            "/ws/notifications"
+            "/ws/notifications", "/actuator/**"
         };
         
         http
