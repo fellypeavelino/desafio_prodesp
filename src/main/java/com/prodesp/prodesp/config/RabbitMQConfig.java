@@ -12,12 +12,19 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Usuario
  */
+import org.springframework.amqp.core.*;
+
 @Configuration
 public class RabbitMQConfig {
 
-    private static final String QUEUE_NAME = "tarefa.atrasada.queue";
-    private static final String EXCHANGE_NAME = "tarefa.exchange";
-    private static final String ROUTING_KEY = "tarefa.atrasada";
+    public static final String EXCHANGE_NAME = "tarefa.exchange";
+    public static final String QUEUE_NAME = "tarefa.queue";
+    public static final String ROUTING_KEY = "tarefa.routingKey";
+
+    @Bean
+    public DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
+    }
 
     @Bean
     public Queue queue() {
@@ -25,12 +32,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
-    }
-
-    @Bean
-    public Binding binding(Queue queue, TopicExchange exchange) {
+    public Binding binding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 }

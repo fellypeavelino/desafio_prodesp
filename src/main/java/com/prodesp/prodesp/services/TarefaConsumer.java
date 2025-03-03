@@ -4,9 +4,11 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.config.NotificationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,12 +18,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class TarefaConsumer {
     
+    @Autowired
+    private NotificationHandler notificationHandler;
+    
     private static final Logger logger = LoggerFactory.getLogger(TarefaConsumer.class);
     
     @RabbitListener(queues = "tarefa.atrasada.queue")
     public void processarMensagem(String mensagem) {
-        System.out.println("🔔 Notificação enviada: " + mensagem);
+
         logger.info("🔔 Notificação recebida: {}", mensagem);
         // Aqui você pode integrar com um sistema de e-mail, push notification, etc.
+        
+        notificationHandler.sendNotification("Tarefa pendente: " + mensagem);
     }
 }

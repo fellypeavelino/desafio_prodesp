@@ -26,7 +26,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         
-        String[] urlsPermitidas = {"/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/token", "/usuarios/login"};
+        String[] urlsPermitidas = {
+            "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/token", "/usuarios/login",
+            "/ws/notifications"
+        };
         
         http
             .csrf(csrf -> csrf.disable()) // Desabilita CSRF para APIs REST
