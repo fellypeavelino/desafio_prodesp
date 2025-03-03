@@ -1,5 +1,10 @@
+<app-menu></app-menu>
+<div class="ion-page" id="main-content">
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>{{ isEditing ? 'Editar Usuário' : 'Novo Usuário' }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -29,3 +34,4 @@
     </ion-button>
   </form>
 </ion-content>
+</div>

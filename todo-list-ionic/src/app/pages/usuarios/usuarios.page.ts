@@ -109,10 +109,14 @@ export class UsuariosPage implements OnInit {
 
   redirecionarParaForm(id:number = 0){
     if (id != 0) {
-      this.navCtrl.navigateForward(`/usuario-form/${id}`); 
+      this.navCtrl.navigateForward(`/usuario-form/${id}`).then(() => {
+        location.reload();
+      }); 
       return ;  
     }
-    this.navCtrl.navigateForward('/usuario-form'); 
+    this.navCtrl.navigateForward('/usuario-form').then(() => {
+      location.reload();
+    }); 
   }
 
   nextPage() {

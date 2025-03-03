@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonList, IonItem, IonLabel, IonInput, IonButton, 
-  NavController
+  NavController, IonText, IonIcon, IonButtons, 
+  IonMenuButton
 } from '@ionic/angular/standalone';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +13,7 @@ import { CategoriaService } from '../../services/categoria.service';
 import { Categoria } from '../../models/categoria.model';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { MenuComponent } from "src/app/components/menu/menu.component";
 @Component({
   selector: 'app-categoria-form',
   templateUrl: './categoria-form.page.html',
@@ -21,7 +23,8 @@ import { Location } from '@angular/common';
     IonContent, IonHeader, IonTitle, 
     IonToolbar, CommonModule, FormsModule,
     IonList, IonItem, IonLabel, IonInput, 
-    IonButton 
+    IonButton, IonText, IonIcon, IonButtons, 
+    IonMenuButton, MenuComponent
   ]
 })
 export class CategoriaFormPage implements OnInit {

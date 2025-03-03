@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonList,
-  IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton
+  IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton,
+  IonButtons, IonMenuButton
 } from '@ionic/angular/standalone';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuComponent } from "src/app/components/menu/menu.component";
 
 @Component({
   selector: 'app-usuario-form',
@@ -19,7 +21,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     IonToolbar, CommonModule, FormsModule,
     IonItem, IonLabel, IonText, IonInput, 
     IonIcon, IonButton, ReactiveFormsModule,
-    IonList
+    IonList, IonButtons, IonMenuButton,
+    MenuComponent
   ]
 })
 export class UsuarioFormPage implements OnInit {

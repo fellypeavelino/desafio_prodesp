@@ -72,10 +72,14 @@ export class CategoriaListPage implements OnInit {
 
   redirecionarParaForm(id:number = 0){
     if (id != 0) {
-      this.navCtrl.navigateForward(`/categoria-form/${id}`); 
+      this.navCtrl.navigateForward(`/categoria-form/${id}`).then(() => {
+        location.reload();
+      }); 
       return ;  
     }
-    this.navCtrl.navigateForward('/categoria-form'); 
+    this.navCtrl.navigateForward('/categoria-form').then(() => {
+      location.reload();
+    }); 
   }
 
 }
