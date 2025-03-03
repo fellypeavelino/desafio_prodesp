@@ -20,16 +20,16 @@ import org.springframework.data.repository.query.Param;
 public interface TarefasRepository extends JpaRepository<Tarefas, Long> {
     Optional<Tarefas> findById(Long id);
     
-    @Query("SELECT t FROM Tarefas t WHERE " +
+    @Query("SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId AND " +
            "LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
-           "LOWER(t.descicao) LIKE LOWER(CONCAT('%', :term, '%')) ")
-    Page<Tarefas> findPageByFiltro(@Param("term") String term, Pageable pageable);
+           "LOWER(t.descricao) LIKE LOWER(CONCAT('%', :term, '%')) ")
+    Page<Tarefas> findPageByFiltro(@Param("term") String term, @Param("usuarioId") Long usuarioId, Pageable pageable);
 
-    @Query("SELECT t FROM Tarefas t WHERE " +
+    @Query("SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId AND " +
             "LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
-            "LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) ")
-    List<Tarefas> findFiltro(@Param("term") String term);
+            "LOWER(t.descricao) LIKE LOWER(CONCAT('%', :term, '%')) ")
+    List<Tarefas> findFiltro(@Param("term") String term, @Param("usuarioId") Long usuarioId);
     
-    @Query("SELECT t FROM Tarefas t")
-    Page<Tarefas> findPage(Pageable pageable);
+    @Query("SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId ")
+    Page<Tarefas> findPage(Pageable pageable, @Param("usuarioId") Long usuarioId);
 }

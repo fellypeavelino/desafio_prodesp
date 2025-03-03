@@ -18,7 +18,7 @@ public class TarefasDTO {
     private Long id;
     @NotNull(message = "O campo 'titulo' não pode ser nulo.")
     private String titulo;
-    private String descicao;
+    private String descricao;
     @NotNull(message = "O campo 'completada' não pode ser nulo.")
     private boolean completada;
     private LocalDateTime data;

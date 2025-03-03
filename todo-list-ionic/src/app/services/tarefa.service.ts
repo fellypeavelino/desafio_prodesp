@@ -13,8 +13,8 @@ export class TarefaService {
 
   constructor(private http: HttpClient) {}
 
-  getPagination(param:RequestPage): Observable<any> {
-    return this.http.post<any>(this.apiUrl+"/paginacao", param);
+  getPagination(param:RequestPage, id_usuario:number): Observable<any> {
+    return this.http.post<any>(this.apiUrl+"/paginacao/"+id_usuario, param);
   }
 
   getTarefas(): Observable<Tarefa[]> {

@@ -57,8 +57,10 @@ public class TarefasController {
         return service.findDTOById(id);
     }
     
-    @PostMapping("/paginacao")
-    public TarefasPaginadosDTO getTarefasPaginadosEOrdenadosPorQuery(@Valid @RequestBody RequestPageDTO dto) {
-        return service.getTarefasPaginadosEOrdenadosPorQuery(dto);
+    @PostMapping("/paginacao/{usuario_id}")
+    public TarefasPaginadosDTO getTarefasPaginadosEOrdenadosPorQuery(
+            @Valid @RequestBody RequestPageDTO dto, @PathVariable Long usuario_id
+    ) {
+        return service.getTarefasPaginadosEOrdenadosPorQuery(dto, usuario_id);
     }
 }

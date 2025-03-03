@@ -84,11 +84,11 @@ public class TarefasService {
         return dto;
     }
     
-    public TarefasPaginadosDTO getTarefasPaginadosEOrdenadosPorQuery(RequestPageDTO dto) {
+    public TarefasPaginadosDTO getTarefasPaginadosEOrdenadosPorQuery(RequestPageDTO dto, Long usuario_id) {
         TarefasPaginadosDTO result = new TarefasPaginadosDTO();
         List<TarefasDTO> tarefasDTO = new ArrayList<>();
         result.setParam(dto);
-
+        
         String sortBy = dto.getSortBy();
         String sortDir = dto.getSortDir();
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
@@ -97,10 +97,10 @@ public class TarefasService {
         Page<Tarefas> page = null;
         long total = 0;
         if (dto.getFiltro() != null && !dto.getFiltro().isEmpty()) {
-            page = repository.findPageByFiltro(dto.getFiltro(), pageable);
-            total = repository.findFiltro(dto.getFiltro()).size();
+            page = repository.findPageByFiltro(dto.getFiltro(), usuario_id, pageable);
+            total = repository.findFiltro(dto.getFiltro(), usuario_id).size();
         } else {
-            page = repository.findPage(pageable);
+            page = repository.findPage(pageable, usuario_id);
             total = repository.count();
         }
 

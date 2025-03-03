@@ -12,6 +12,10 @@ import { AlertController } from '@ionic/angular';
 import { RequestPage } from 'src/app/models/request.page.model';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { TarefaService } from 'src/app/services/tarefa.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { Categoria } from 'src/app/models/categoria.model';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-tarefas',
@@ -37,15 +41,23 @@ export class TarefasPage implements OnInit {
   maxPagesToShow = 5;
   searchTerm:string = "";
   tarefas:Tarefa[] = [];
-  
+  categorias:Categoria[]=[];
+  usuario:Usuario = {id: 0, loguin: '', senha: ''}
+
   constructor(
+    private usuarioService: UsuarioService,
+    private categoriaService: CategoriaService,
     private tarefaService: TarefaService, 
     private alertCtrl: AlertController,
     private navCtrl: NavController
   ) { }
 
   ngOnInit() {
+    this.usuario = this.usuarioService.getUsuarioLogin();
     this.loadTarefas();
+    this.categoriaService.getCategorias().subscribe(res => {
+      console.log(res);
+    });
   }
 
   loadTarefas(event?: any) {
@@ -54,7 +66,7 @@ export class TarefasPage implements OnInit {
 
     this.requestPage.page = (this.page - 1);
     this.requestPage.size = this.size;
-    this.tarefaService.getPagination(this.requestPage).subscribe(response => {
+    this.tarefaService.getPagination(this.requestPage, this.usuario.id).subscribe(response => {
       this.tarefas = response.tarefasDto;
       this.totalTarefas = response.total;
       this.totalPages = Math.ceil(this.totalTarefas / this.size);

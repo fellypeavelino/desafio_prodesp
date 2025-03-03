@@ -46,6 +46,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.authService.logout();
     this.tokenService.deleteToken();
+    this.usuarioService.removeUsuarioLogin();
   }
 
   togglePassword() {
@@ -64,7 +65,7 @@ export class LoginPage implements OnInit {
       this.authService.login();
       const token = (await this.tokenService.tokenAsync()).sub;
       this.tokenService.setToken(token);
-      this.usuarioService.usuario = this.usuario;
+      this.usuarioService.setUsuarioLogin(this.usuario);
       this.navCtrl.navigateForward('/home'); 
     } else {
       console.log('Formulário inválido');

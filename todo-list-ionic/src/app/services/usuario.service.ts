@@ -44,4 +44,19 @@ export class UsuarioService {
   getUsuario(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
+
+  setUsuarioLogin(usuario:Usuario){
+    const login = JSON.stringify(usuario);
+    localStorage.setItem("usuarioLogin", login);
+  }
+
+  getUsuarioLogin(){
+    let usuarioLogin = localStorage.getItem("usuarioLogin") || '{}';
+    this.usuario = JSON.parse(usuarioLogin);
+    return this.usuario;
+  }
+
+  removeUsuarioLogin(){
+    localStorage.removeItem("usuarioLogin");
+  }
 }
