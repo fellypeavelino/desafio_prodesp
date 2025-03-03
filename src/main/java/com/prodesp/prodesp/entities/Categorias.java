@@ -39,4 +39,10 @@ public class Categorias {
     
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Tarefas> tarefas;
+
+    public Categorias(long id, String nome, String cor) {
+        this.id = id;
+        this.nome = nome;
+        this.cor = cor;
+    }
 }

@@ -36,7 +36,7 @@ public class CategoriasService {
     public List<CategoriasDTO> findDTOAll() { 
         List<Categorias> categorias = repository.findAllOrderedByIdDesc(); 
         List<CategoriasDTO> categoriasDto = new ArrayList<>();
-        categorias.forEach(c -> categoriasDto.add(convertUtil.convertToDto(c)));
+        categorias.forEach(c -> categoriasDto.add(getConvertUtil().convertToDto(c)));
         return categoriasDto;
     }
     
@@ -49,7 +49,7 @@ public class CategoriasService {
         categoria.setNome(categoriadto.getNome());
         categoria.setCor(categoriadto.getCor());
         categoria = save(categoria); 
-        return convertUtil.convertToDto(categoria);
+        return getConvertUtil().convertToDto(categoria);
     }
     
     public CategoriasDTO updateDTO(Long id, CategoriasDTO categoriadto) { 
@@ -58,19 +58,33 @@ public class CategoriasService {
         categoria.setNome(categoriadto.getNome());
         categoria.setCor(categoriadto.getCor());
         categoria = save(categoria); 
-        return convertUtil.convertToDto(categoria);
+        return getConvertUtil().convertToDto(categoria);
     }
     
     public CategoriasDTO findDTOById(Long id){
         Optional<Categorias> op = repository.findById(id);
         CategoriasDTO dto = new CategoriasDTO();
         if(op.isPresent()){
-            dto = convertUtil.convertToDto(op.get());
+            dto = getConvertUtil().convertToDto(op.get());
         }
         return dto;
     }
     
     public void delete(Long id){
         repository.deleteById(id);
+    }
+
+    /**
+     * @return the convertUtil
+     */
+    public ConvertUtil getConvertUtil() {
+        return convertUtil;
+    }
+
+    /**
+     * @param convertUtil the convertUtil to set
+     */
+    public void setConvertUtil(ConvertUtil convertUtil) {
+        this.convertUtil = convertUtil;
     }
 }

@@ -18,4 +18,12 @@ public class CategoriasDTO {
     private String nome;
     @NotNull(message = "O campo 'cor' não pode ser nulo.")
     private String cor;
+
+    public CategoriasDTO(){}
+    
+    public CategoriasDTO(Long id, String nome, String cor) {
+        this.id = id;
+        this.nome = nome;
+        this.cor = cor;
+    }
 }
