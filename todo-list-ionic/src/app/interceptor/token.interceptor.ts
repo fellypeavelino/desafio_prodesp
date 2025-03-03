@@ -9,8 +9,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const tokenService = inject(TokenService);
   const authToken = tokenService.getToken();
   //console.log(authToken);
-  
-  loadingService.setLoading(true);
+  const {body} = req;
+  let filtro:any = body;
+  if (!filtro) {
+    loadingService.setLoading(true); 
+  }
   let authReq = req.clone();
   if (authToken) {
     authReq = req.clone({
