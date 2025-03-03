@@ -17,16 +17,24 @@
   <!-- Tabela de Tarefas -->
   <ion-grid>
     <ion-row class="header">
-      <ion-col size="2"><strong>ID</strong></ion-col>
-      <ion-col size="4"><strong>Título</strong></ion-col>
-      <ion-col size="4"><strong>Descrição</strong></ion-col>
+      <ion-col size="1"><strong>ID</strong></ion-col>
+      <ion-col size="3"><strong>Título</strong></ion-col>
+      <ion-col size="3"><strong>Descrição</strong></ion-col>
+      <ion-col size="3"><strong>Categoria</strong></ion-col>
       <ion-col size="2"><strong>Ações</strong></ion-col>
     </ion-row>
 
     <ion-row *ngFor="let tarefa of tarefas">
-      <ion-col size="2">{{ tarefa.id }}</ion-col>
-      <ion-col size="4">{{ tarefa.titulo }}</ion-col>
-      <ion-col size="4">{{ tarefa.descricao }}</ion-col>
+      <ion-col size="1">{{ tarefa.id }}</ion-col>
+      <ion-col size="3">{{ tarefa.titulo }}</ion-col>
+      <ion-col size="3">{{ tarefa.descricao }}</ion-col>
+      <ion-col size="3">
+        <ion-select [(ngModel)]="tarefa.categoria_id">
+          <ion-select-option *ngFor="let categoria of categorias" [value]="categoria.id">
+            {{ categoria.nome }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
       <ion-col size="2">
         <ion-button color="primary" size="small" (click)="redirecionarParaForm(tarefa.id)">Editar</ion-button>
       </ion-col>
@@ -49,12 +57,4 @@
     </ion-grid>
     <p class="ion-text-center">Página {{ page }} de {{ totalPages }}</p>
   </ion-footer>
-
-  <!-- Infinite Scroll (Comentado) -->
-  <!--
-  <ion-infinite-scroll (ionInfinite)="loadMore($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Carregando mais tarefas...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll> 
-  -->
 </ion-content>

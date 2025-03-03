@@ -5,7 +5,7 @@ import {
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonButton, IonList, IonItem, IonLabel, IonButtons,
   IonInfiniteScroll, IonInfiniteScrollContent, IonFooter,
-  IonGrid, IonRow, IonCol, IonInput
+  IonGrid, IonRow, IonCol, IonInput, IonSelect, IonSelectOption
 } from '@ionic/angular/standalone';
 import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -28,7 +28,7 @@ import { Usuario } from 'src/app/models/usuario.model';
     IonButton, IonList, IonItem, IonLabel, 
     IonButtons, IonInfiniteScroll, IonInfiniteScrollContent,
     IonGrid, IonRow, IonCol, IonFooter,
-    IonInput
+    IonInput, IonSelect, IonSelectOption
   ]
 })
 export class TarefasPage implements OnInit {
@@ -56,7 +56,7 @@ export class TarefasPage implements OnInit {
     this.usuario = this.usuarioService.getUsuarioLogin();
     this.loadTarefas();
     this.categoriaService.getCategorias().subscribe(res => {
-      console.log(res);
+      this.categorias = res;
     });
   }
 
