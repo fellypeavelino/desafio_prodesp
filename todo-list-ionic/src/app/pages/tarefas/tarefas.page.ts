@@ -126,10 +126,14 @@ export class TarefasPage implements OnInit {
 
   redirecionarParaForm(id:number = 0){
     if (id != 0) {
-      this.navCtrl.navigateForward(`/tarefa-form/${id}`); 
+      this.navCtrl.navigateForward(`/tarefa-form/${id}`).then(res => {
+        location.reload();
+      }); 
       return ;  
     }
-    this.navCtrl.navigateForward('/tarefa-form'); 
+    this.navCtrl.navigateForward('/tarefa-form').then(res => {
+      location.reload();
+    }); 
   }
 
   nextPage() {

@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } 
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonList,
   IonItem, IonLabel, IonText, IonInput, IonIcon, IonButton,
-  IonSelect, IonSelectOption, IonCheckbox,
-  ToastController,
+  IonSelect, IonSelectOption, IonCheckbox, IonButtons,
+  ToastController, IonMenu, IonMenuButton,
   NavController
 } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import { Categoria } from 'src/app/models/categoria.model';
 import { Tarefa } from 'src/app/models/tarefa.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
+import { MenuComponent } from "src/app/components/menu/menu.component";
 
 @Component({
   selector: 'app-tarefa-form',
@@ -27,7 +28,8 @@ import { Usuario } from 'src/app/models/usuario.model';
     IonItem, IonLabel, IonText, IonInput, 
     IonIcon, IonButton, ReactiveFormsModule,
     IonList, IonSelect, IonSelectOption,
-    IonCheckbox
+    IonCheckbox, IonMenu, IonMenuButton,
+    MenuComponent, IonButtons
   ]
 })
 export class TarefaFormPage implements OnInit {
