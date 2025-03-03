@@ -42,7 +42,7 @@ public class TarefasService {
     public List<TarefasDTO> findDTOAll() { 
         List<Tarefas> list = findAll();
         List<TarefasDTO> listResult = new ArrayList<>();
-        list.forEach(o -> listResult.add(convertUtil.convertToDto(o)));
+        list.forEach(o -> listResult.add(getConvertUtil().convertToDto(o)));
         return listResult;
     }
     
@@ -51,7 +51,7 @@ public class TarefasService {
     }
     
     public TarefasDTO saveDTO(TarefasDTO tarefaDto) { 
-        Tarefas tarefa = convertUtil.convertToEntity(tarefaDto);
+        Tarefas tarefa = getConvertUtil().convertToEntity(tarefaDto);
         
         Usuarios usuario = new Usuarios();
         usuario.setId(tarefaDto.getUsuario_id());
@@ -79,7 +79,7 @@ public class TarefasService {
         TarefasDTO dto = new TarefasDTO();
         Optional<Tarefas> op = repository.findById(id);
         if (op.isPresent()) {
-            dto = convertUtil.convertToDto(op.get());
+            dto = getConvertUtil().convertToDto(op.get());
             Long categoria_id = op.get().getCategoria().getId();
             dto.setCategoria_id(categoria_id);
         }
@@ -107,7 +107,7 @@ public class TarefasService {
         }
         List<Tarefas> listaTarefas = page.getContent();
         for (Tarefas ltaTarefa : listaTarefas) {
-            TarefasDTO tarefaDto = convertUtil.convertToDto(ltaTarefa);
+            TarefasDTO tarefaDto = getConvertUtil().convertToDto(ltaTarefa);
             Long categori_id = ltaTarefa.getCategoria().getId();
             tarefaDto.setCategoria_id(categori_id);
             tarefasDTO.add(tarefaDto);
@@ -120,7 +120,21 @@ public class TarefasService {
     
     private List<TarefasDTO> convertToListDto(List<Tarefas> tarefas) {
         List<TarefasDTO> listResult = new ArrayList<>();
-        tarefas.forEach(c -> listResult.add(convertUtil.convertToDto(c)));
+        tarefas.forEach(c -> listResult.add(getConvertUtil().convertToDto(c)));
         return listResult;
+    }
+
+    /**
+     * @return the convertUtil
+     */
+    public ConvertUtil getConvertUtil() {
+        return convertUtil;
+    }
+
+    /**
+     * @param convertUtil the convertUtil to set
+     */
+    public void setConvertUtil(ConvertUtil convertUtil) {
+        this.convertUtil = convertUtil;
     }
 }
