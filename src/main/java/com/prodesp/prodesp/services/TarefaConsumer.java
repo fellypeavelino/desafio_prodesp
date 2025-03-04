@@ -33,13 +33,13 @@ public class TarefaConsumer {
     
     private static final Logger logger = LoggerFactory.getLogger(TarefaConsumer.class);
     
-    @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
-    public void processarMensagem(@Payload String mensagem) {
-        System.out.println("📩 Mensagem recebida: " + mensagem);
-        logger.info("📩 Mensagem recebida: ", mensagem);
-        // Aqui você pode integrar com um sistema de e-mail, push notification, etc.
-        
-        //notificationHandler.sendNotification("Tarefa pendente: " + mensagem);
-    }
+//    @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
+//    public void processarMensagem(@Payload String mensagem) {
+//        System.out.println("📩 Mensagem recebida: " + mensagem);
+//        logger.info("📩 Mensagem recebida: ", mensagem);
+//        // Aqui você pode integrar com um sistema de e-mail, push notification, etc.
+//        
+//        notificationHandler.sendNotification("Tarefa pendente: " + mensagem);
+//    }
 
 }
