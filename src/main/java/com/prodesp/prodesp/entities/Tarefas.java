@@ -59,13 +59,13 @@ public class Tarefas {
     @Override
     public String toString() {
         return "{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", completada=" + completada +
-                ", data=" + data +
-                ", usuario=" + (usuario != null ? usuario.getId() : "null") +
-                ", categoria=" + (categoria != null ? categoria.getId() : "null") +
-                '}';
+                    "\"id\": " + id + "," +
+                    "\"titulo\": \"" + titulo + "\"," +
+                    "\"descricao\": \"" + descricao + "\"," +
+                    "\"completada\": " + completada + "," +
+                    "\"data\": \"" + data + "\"," +
+                    "\"usuario\": " + (usuario != null ? "\"" + usuario.getId() + "\"" : "null") + "," +
+                    "\"categoria\": " + (categoria != null ? "\"" + categoria.getId() + "\"" : "null") +
+                    "}";
     }
 }

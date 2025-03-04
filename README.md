@@ -80,6 +80,15 @@ A documentação da API pode ser acessada via Swagger na seguinte URL:
 
 ## Como Executar o Projeto
 
+### Banco de Dados e o RabbitMQ estam no Docker Compose (inicie primeiro)
+
+1. Certifique-se de ter o Docker e o Docker Compose instalados.
+2. Na raiz do projeto, execute o seguinte comando para subir o banco de dados PostgreSQL:
+   ```sh
+   docker-compose up -d
+   ```
+3. O banco de dados estará disponível para conexão.
+
 ### Backend
 
 1. Certifique-se de ter o Java 21 instalado.
@@ -106,12 +115,3 @@ A documentação da API pode ser acessada via Swagger na seguinte URL:
 6. Na tela de login, utilize as credenciais padrão:
    - **Login:** `admin`
    - **Senha:** `admin123`
-
-### Banco de Dados esta no Docker Compose
-
-1. Certifique-se de ter o Docker e o Docker Compose instalados.
-2. Na raiz do projeto, execute o seguinte comando para subir o banco de dados PostgreSQL:
-   ```sh
-   docker-compose up -d
-   ```
-3. O banco de dados estará disponível para conexão.
