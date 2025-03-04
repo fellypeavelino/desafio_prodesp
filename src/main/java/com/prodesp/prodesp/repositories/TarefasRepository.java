@@ -23,18 +23,18 @@ public interface TarefasRepository extends JpaRepository<Tarefas, Long> {
     
     @Query(
         "SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId AND t.completada = false AND " +
-        "LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
+        "( LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
         "LOWER(t.descricao) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
-        "LOWER(t.categoria.nome) LIKE LOWER(CONCAT('%', :term, '%')) " +
+        "LOWER(t.categoria.nome) LIKE LOWER(CONCAT('%', :term, '%')) ) " +
         "ORDER BY t.id DESC " 
     )
     Page<Tarefas> findPageByFiltro(@Param("term") String term, @Param("usuarioId") Long usuarioId, Pageable pageable);
 
     @Query(
         "SELECT t FROM Tarefas t WHERE t.usuario.id = :usuarioId AND t.completada = false AND " +
-        "LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
+        "( LOWER(t.titulo) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
         "LOWER(t.descricao) LIKE LOWER(CONCAT('%', :term, '%')) OR " +
-        "LOWER(t.categoria.nome) LIKE LOWER(CONCAT('%', :term, '%')) " +
+        "LOWER(t.categoria.nome) LIKE LOWER(CONCAT('%', :term, '%')) ) " +
         "ORDER BY t.id DESC " 
     )
     List<Tarefas> findFiltro(@Param("term") String term, @Param("usuarioId") Long usuarioId);
