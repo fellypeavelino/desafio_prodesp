@@ -10,7 +10,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authToken = tokenService.getToken();
   //console.log(authToken);
   const body:any = req.body;
-  if (body.page && body.page > 0) {
+  if (!body?.filtro || body?.filtro == "") {
     loadingService.setLoading(true); 
   }
   let authReq = req.clone();
