@@ -46,7 +46,7 @@ export class RabbitMQService {
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 2000
+      duration: 10000
     });
     toast.present();
   }
