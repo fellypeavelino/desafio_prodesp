@@ -4,6 +4,7 @@ import { ProgressComponent } from "src/app/components/progress/progress.componen
 import { LoadingService } from './services/loading.service';
 import { Subscription } from 'rxjs';
 import { WebsocketService } from './services/websocket.service';
+import { RabbitMQService } from './services/rabbit-mq.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,15 +18,10 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   constructor(
     private loadingService: LoadingService,
-    private websocketService: WebsocketService,
-    private toastController: ToastController
+    private rabbitMQService: RabbitMQService
   ) {}
 
   ngOnInit(): void {
-    this.websocketService.getMessages().subscribe((message) => {
-      console.log('📢 Notificação recebida:', message);
-      this.showToast(message);
-    });
     this.subscription = this.loadingService.loading$.subscribe(loading => {
       if (loading) {
         this.showModal = true;
@@ -41,11 +37,4 @@ export class AppComponent implements OnInit, OnDestroy  {
     }
   }
 
-  async showToast(message: string) {
-    const toast = await this.toastController.create({
-      message,
-      duration: 2000
-    });
-    toast.present();
-  }
 }

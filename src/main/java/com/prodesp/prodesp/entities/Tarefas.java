@@ -55,4 +55,17 @@ public class Tarefas {
     protected void onCreate() {
         this.data = LocalDateTime.now();
     }
+    
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", completada=" + completada +
+                ", data=" + data +
+                ", usuario=" + (usuario != null ? usuario.getId() : "null") +
+                ", categoria=" + (categoria != null ? categoria.getId() : "null") +
+                '}';
+    }
 }

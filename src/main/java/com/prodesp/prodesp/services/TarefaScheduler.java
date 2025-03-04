@@ -46,16 +46,12 @@ public class TarefaScheduler {
     @Scheduled(fixedRate = 60000) // Executa a cada 1 minuto
     public void verificarTarefasPendentes() {
         logger.info("Verificando tarefas pendentes...");
-//        RabbitMQSetup.createExchangeAndQueue();
         LocalDateTime umDiaAtras = LocalDateTime.now().minusDays(1);
         List<Tarefas> tarefasAtrasadas = tarefaRepository.findByCompletadaAndDataBefore(false, umDiaAtras);
 
         for (Tarefas tarefa : tarefasAtrasadas) {
-            //tarefa.toString();
-            String mensagem = "A tarefa '" + tarefa.getTitulo() + "' está atrasada!";
-            tarefaProducer.enviarMensagem(mensagem);
-//            notificationHandler.sendNotification("Tarefa pendente: " + mensagem);
-            logger.info("Notificação enviada para tarefa atrasada: {}", tarefa.getTitulo());
+            tarefaProducer.enviarMensagem(tarefa.toString());
+            logger.info("Notificação enviada para tarefa atrasada: {}", tarefa.toString());
         }
     }
     
