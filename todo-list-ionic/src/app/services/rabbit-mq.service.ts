@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Client } from '@stomp/stompjs';
+import { UsuarioService } from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class RabbitMQService {
 
   constructor(
     private toastController: ToastController,
+    private usuarioService: UsuarioService,
   ) {
     this.stompClient = new Client({
       brokerURL: 'ws://localhost:15674/ws', // URL do RabbitMQ WebSocket
@@ -31,8 +33,12 @@ export class RabbitMQService {
 
   public subscribeToQueue(queue: string) {
     this.stompClient.subscribe(queue, message => {
-      console.log('Mensagem recebida:', message.body);
-      this.showToast(message.body);
+      const usuario = this.usuarioService.getUsuarioLogin();
+      const objTarefa = JSON.parse(message.body);
+      if (usuario.id == objTarefa.usuario) {
+        console.log('Mensagem recebida:', message.body, usuario);
+        this.showToast(`A tarefa ${objTarefa.titulo} esta atrasada`);  
+      }
     });
   }
   
