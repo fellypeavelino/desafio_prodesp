@@ -4,6 +4,7 @@
  */
 package com.prodesp.prodesp.services;
 
+import com.prodesp.prodesp.config.RabbitMQConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TarefaProducer {
-    private static final String EXCHANGE_NAME = "tarefa.exchange";
-    private static final String ROUTING_KEY = "tarefa.atrasada";
+    private static final String EXCHANGE_NAME = RabbitMQConfig.EXCHANGE_NAME;
+    private static final String ROUTING_KEY = RabbitMQConfig.ROUTING_KEY;
 
     private final RabbitTemplate rabbitTemplate;
 

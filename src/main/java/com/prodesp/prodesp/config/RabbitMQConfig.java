@@ -23,8 +23,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     public static final String QUEUE_NAME = "tarefa.atrasada";
-    public static final String EXCHANGE_NAME = "amq.direct";
-    //public static final String EXCHANGE_NAME = "tarefa.exchange";
+    //public static final String EXCHANGE_NAME = "amq.direct";
+    public static final String EXCHANGE_NAME = "tarefa.exchange";
     public static final String ROUTING_KEY = "tarefa.atrasada";
     
     @Bean
