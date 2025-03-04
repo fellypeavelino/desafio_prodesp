@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
+import { IonApp, IonRouterOutlet, ToastController } from '@ionic/angular/standalone';
 import { ProgressComponent } from "src/app/components/progress/progress.component";
 import { LoadingService } from './services/loading.service';
 import { Subscription } from 'rxjs';
@@ -17,13 +17,14 @@ export class AppComponent implements OnInit, OnDestroy  {
 
   constructor(
     private loadingService: LoadingService,
-    private websocketService: WebsocketService
+    private websocketService: WebsocketService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit(): void {
     this.websocketService.getMessages().subscribe((message) => {
       console.log('📢 Notificação recebida:', message);
-      alert(message);
+      this.showToast(message);
     });
     this.subscription = this.loadingService.loading$.subscribe(loading => {
       if (loading) {
@@ -38,5 +39,13 @@ export class AppComponent implements OnInit, OnDestroy  {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  async showToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
   }
 }
