@@ -51,9 +51,6 @@ export class UsuariosPage implements OnInit {
   loadUsuarios(event?: any) {
     if (this.isLoading) return;
     this.isLoading = true;
-    if (this.requestPage.filtro != "") {
-      this.page = 1;
-    }
     this.requestPage.page = (this.page - 1);
     this.requestPage.size = this.size;
     this.usuarioService.getPagination(this.requestPage).subscribe(response => {

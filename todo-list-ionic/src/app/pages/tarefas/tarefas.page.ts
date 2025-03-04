@@ -67,9 +67,6 @@ export class TarefasPage implements OnInit {
   loadTarefas(event?: any) {
     if (this.isLoading) return;
     this.isLoading = true;
-    if (this.requestPage.filtro != "") {
-      this.page = 1;
-    }
     this.requestPage.page = (this.page - 1);
     this.requestPage.size = this.size;
     this.tarefaService.getPagination(this.requestPage, this.usuario.id).subscribe(response => {
